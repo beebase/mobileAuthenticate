@@ -11,7 +11,7 @@ angular.module('starter')
     loadCredentials();
 
     //private
-    function loadCredentials()  {
+    function loadCredentials() {
       var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
       if (token) {
         useCredentials(token);
@@ -72,7 +72,7 @@ angular.module('starter')
     };
 
     var isAuthorized = function(authorizedRoles) {
-     // make sure argument authorizedRoles is always an array
+      // make sure argument authorizedRoles is always an array
       if (!angular.isArray(authorizedRoles)) {
         authorizedRoles = [authorizedRoles];
       }
@@ -96,4 +96,20 @@ angular.module('starter')
         return role
       }
     }
+  })
+
+  //intercept response if user is not  authenticated or authorized
+  .factory('AuthInterceptor', function($rootScope, $1, AUTH_EVENTS) {
+    return {
+      responseError: function(response) {
+        $rootScope.$broadcast({
+          401: AUTH_EVENTS.notAuthenticated,
+          403: AUTH_EVENTS.notAuthorized
+        }[response.status], response);
+        return $q.reject(response);
+      }
+    }
+  })
+  .config(function($httpProvider) {
+    $httpProvider.interceptors.push('AuthInterceptor');
   });
