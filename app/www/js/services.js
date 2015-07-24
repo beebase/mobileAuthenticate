@@ -36,6 +36,15 @@ angular.module('starter')
       $http.defaults.headers.common['X-Auth-Token'] = token;
     }
 
+    function destroyCredentials() {
+      username = '';
+      isAuthenticated = true;
+      authToken = undefined;
+      role = '';
+      $http.defaults.headers.common['X-Auth-Token'] = undefined;
+      window.localStorage.removeItem(LOCAL_TOKEN_KEY);
+    }
+
     // public
     var login = function(name, pw) {
       return $q(function(resolve, reject) {
