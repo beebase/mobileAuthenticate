@@ -1,7 +1,7 @@
 <ion-view>
   <ion-nav-buttons side="right">
     <button class="button icon-left ion-log-out button-stable"
-            ng-click="logout()"></button>
+            ng-click="logout()">Logout</button>
   </ion-nav-buttons>
   <ion-content>
     <div class="row">
@@ -17,7 +17,7 @@
                 ng-click="performUnauthorizedRequest()">
           Make Request for unauthorized resource
         </button>
-        <button class="button button-fill button-assertive"
+        <button class="button button-full button-assertive"
                 ng-click="performInvalidRequest()">
           Make Request without valid token
         </button>
