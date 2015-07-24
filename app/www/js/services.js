@@ -63,9 +63,21 @@ angular.module('starter')
       destroyCredentials();
     };
 
+    var isAuthorized = function(authorizedRoles) {
+     // make sure authorizedRoles is always an array
+      if (!angular.isArray(authorizedRoles)) {
+        authorizedRoles = [authorizedRoles];
+      }
+      // true if
+      // 1. user is logged in
+      // 2. user role part of the authorizedRoles
+      return (isAuthenticated && authorizedRoles.indexOf(role) !== -1);
+    };
+
     return {
       login          : login,
       logout         : logout,
+      isAuthorized   : isAuthorized,
       username       : function() {
         return username;
       },
