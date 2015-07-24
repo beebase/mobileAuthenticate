@@ -69,4 +69,32 @@ angular.module('starter', ['ionic', 'ngMockE2E'])
     $httpBackend.whenGET('http://localhost:8100/notauthorized')
       .respond(403, {message: "Not Authorized"});
     $httpBackend.whenGET(/templates\/\w+.*/).passThrough();
+  })
+
+  // check each url state for authorization
+  .run(function($rootScope, $state, AuthService, AUTH_EVENTS) {
+    // state event
+    $rootScope.$on('$stateChangeStart',
+      function(event, next, nextParams, fromState) {
+        //if authorizedRoles has info
+        if ('data' in next && 'authorizedRoles' in next.data) {
+          var authorizedRoles = next.data.authorizedRoles;
+          // if not authorized
+          if (!AuthService.isAuthorized(authorizedRoles)) {
+            event.preventDefault();
+            // >>>> go back to previous state
+            $state.go($state.current, {}, {reload: true});
+            // broadcast triggers popup message
+            $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+          }
+        }
+        // if not logged in
+        if (!AuthService.isAuthenticated()) {
+          // >>>> goto login form
+          if (next.name !== 'login') {
+            event.preventDefault();
+            $state.go('login');
+          }
+        }
+      });
   });
