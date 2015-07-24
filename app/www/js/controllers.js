@@ -20,7 +20,7 @@ angular.module('starter')
     });
     $scope.setCurrentUsername = function(name) {
       $scope.username = name;
-    }
+    };
   })
   .controller('LoginCtrl', function($scope, $state, $ionicPopup, AuthService) {
     // form object
