@@ -30,7 +30,8 @@ angular.module('starter')
       AuthService.login(data.username, data.password)
         .then(function(authenticated) {
           $state.go('main.dash', {}, {reload: true});
-          $scope.setCurrentUsername(data.username);
+          //is defined in parent AppCtrl
+          setCurrentUsername(data.username);
         }, function(err) {
           var alertPopup = $ionicPopup.alert({
             title   : 'Login failed!',
