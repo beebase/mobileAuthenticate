@@ -6,8 +6,8 @@ angular.module('starter')
     var LOCAL_TOKEN_KEY = 'yourTokenKey';
     var username = '';
     var isAuthenticated = false;
-    var role = '';
     var authToken;
+    var role = '';
 
     //private
     function storeCredentials(token) {
@@ -17,6 +17,23 @@ angular.module('starter')
 
       window.localStorage.setItem(LOCAL_TOKEN_KEY, token);
       useCredentials(token);
+    }
+
+    function useCredentials(token) {
+      username = token.split('.')[0];
+      isAuthenticated = true;
+      authToken = token;
+
+      //set role
+      if (username === 'admin') {
+        role = USER_ROLES.admin;
+      }
+      if (username === 'user') {
+        role = USER_ROLES.public
+      }
+
+      //add token to header of all requests
+      $http.defaults.headers.common['X-Auth-Token'] = token;
     }
 
     // public
