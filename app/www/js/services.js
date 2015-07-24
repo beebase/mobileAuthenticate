@@ -8,8 +8,16 @@ angular.module('starter')
     var isAuthenticated = false;
     var authToken;
     var role = '';
+    loadCredentials();
 
     //private
+    function loadCredentials()  {
+      var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
+      if (token) {
+        useCredentials(token);
+      }
+    }
+
     function storeCredentials(token) {
       // when using  rememberMe option
       // rememberMe = true,  use localStorage
