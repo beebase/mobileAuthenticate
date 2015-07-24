@@ -22,7 +22,7 @@ angular.module('starter')
       $scope.username = name;
     }
   })
-  .controller('LoginCtrl', function() {
+  .controller('LoginCtrl', function($scope, $state, $ionicPopup, AuthService) {
     // form object
     $scope.data = {};
 
