@@ -48,7 +48,11 @@ angular.module('starter')
           reject('Login Failed.');
         }
       })
-    }
+    };
+
+    var logout = function() {
+      destroyCredentials();
+    };
 
     return {
       login          : login,
