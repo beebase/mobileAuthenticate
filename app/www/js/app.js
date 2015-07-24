@@ -31,7 +31,7 @@ angular.module('starter', ['ionic', 'ngMockE2E'])
         templateUrl: 'templates/main.html'
       })
       .state('main.dash', {
-        url  : '/dash',
+        url  : 'main/dash',
         views: {
           'dash-tab': {
             templateUrl: 'templates/dashboard.html',
@@ -40,7 +40,7 @@ angular.module('starter', ['ionic', 'ngMockE2E'])
         }
       })
       .state('main.public', {
-        url  : '/public',
+        url  : 'main/public',
         views: {
           'public-tab': {
             templateUrl: 'templates/public.html'
@@ -48,9 +48,9 @@ angular.module('starter', ['ionic', 'ngMockE2E'])
         }
       })
       .state('main.admin', {
-        url  : '/admin'       ,
+        url  : 'main/admin',
         views: {
-          'dash-tab': {
+          'admin-tab': {
             templateUrl: 'templates/admin.html'
           }
         },
@@ -61,6 +61,6 @@ angular.module('starter', ['ionic', 'ngMockE2E'])
     $urlRouterProvider.otherwise('/main/dash');
   })
 
-  .run(function($httpBackend){
+  .run(function($httpBackend) {
     $httpBackend.whenGET(/templates\/\w+.*/).passThrough();
   });
