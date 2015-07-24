@@ -9,7 +9,19 @@ angular.module('starter')
     var role = '';
     var authToken;
 
-
+    // public
+    var login = function(name, pw) {
+      return $q(function(resolve, reject) {
+        if ((name === 'admin' && pw === '1')
+            || (name === 'user' && pw === '1')) {
+          // make request to server and receive auth token
+          storeCredentials(name + '.yourServerToken');
+          resolve('Login success.')
+        } else {
+          reject('Login Failed.');
+        }
+      })
+    }
 
     return {
       login          : login,
