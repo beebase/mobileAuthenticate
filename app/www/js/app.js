@@ -62,5 +62,11 @@ angular.module('starter', ['ionic', 'ngMockE2E'])
   })
 
   .run(function($httpBackend) {
+    $httpBackend.whenGET('http://localhost:8100/valid')
+      .respond({message: 'This is my valid response!'});
+    $httpBackend.whenGET('http://localhost:8100/notauthenticated')
+      .respond(401, {message: "Not Authenticated"});
+    $httpBackend.whenGET('http://localhost:8100/notauthorized')
+      .respond(403, {message: "Not Authorized"});
     $httpBackend.whenGET(/templates\/\w+.*/).passThrough();
   });
