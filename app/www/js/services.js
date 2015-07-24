@@ -64,7 +64,7 @@ angular.module('starter')
     };
 
     var isAuthorized = function(authorizedRoles) {
-     // make sure authorizedRoles is always an array
+     // make sure argument authorizedRoles is always an array
       if (!angular.isArray(authorizedRoles)) {
         authorizedRoles = [authorizedRoles];
       }
