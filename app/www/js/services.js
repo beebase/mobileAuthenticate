@@ -9,6 +9,16 @@ angular.module('starter')
     var role = '';
     var authToken;
 
+    //private
+    function storeCredentials(token) {
+      // when using  rememberMe option
+      // rememberMe = true,  use localStorage
+      // rememberMe = false , use sessionStorage
+
+      window.localStorage.setItem(LOCAL_TOKEN_KEY, token);
+      useCredentials(token);
+    }
+
     // public
     var login = function(name, pw) {
       return $q(function(resolve, reject) {
